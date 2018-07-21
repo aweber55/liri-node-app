@@ -8,14 +8,14 @@ var fs = require("fs");
 var Spotify = require("node-spotify-api");
 
 // console.log(keys.twitter);
-// console.log(keys.spotify.id);
+console.log(keys.spotify.id);
 var spotify = new Spotify({
     id: keys.spotify.id,
     secret: keys.spotify.secret
 });
 
 var action = process.argv[2];
-var inputs = process.argv[3];
+var inputs = process.argv.slice(3).join(" ");
 
 
 //----switch case-----
@@ -77,10 +77,10 @@ function movieThis(inputs) {
 function spotifyMe(inputs) {
     console.log("music time");
 
+    console.log()
 
 
-
-// console.log(inputs);
+    console.log(inputs);
 
     spotify.search({
         type: 'track',
@@ -90,7 +90,7 @@ function spotifyMe(inputs) {
             return console.log('Error occurred: ' + err);
         }
 
-        // console.log(data);
+        console.log(data);
     });
 };
 

@@ -403,10 +403,6 @@ signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-spotify@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/spotify/-/spotify-0.3.0.tgz#42b85105cfc30f174c050f2227c21a9d7edb1be4"
-
 sshpk@^1.7.0:
   version "1.14.2"
   resolved "https://registry.yarnpkg.com/sshpk/-/sshpk-1.14.2.tgz#c6fc61648a3d9c4e764fd3fcdf4ea105e492ba98"
