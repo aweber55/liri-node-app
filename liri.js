@@ -80,7 +80,7 @@ function spotifyMe(inputs) {
 
 
 
-console.log(inputs);
+// console.log(inputs);
 
     spotify.search({
         type: 'track',
@@ -90,7 +90,7 @@ console.log(inputs);
             return console.log('Error occurred: ' + err);
         }
 
-        console.log(data);
+        // console.log(data);
     });
 };
 
