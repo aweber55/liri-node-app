@@ -1,10 +1,18 @@
 require("dotenv").config();
-var request = require('request');
+var request = require("request");
 var keys = require("./keys.js");
 var Twitter = require("twitter");
-var spotify = require("spotify");
+
 var fs = require("fs");
-var client = new Twitter(keys.twitterKeys);
+// var client = new Twitter(keys.twitterKeys);
+var Spotify = require("node-spotify-api");
+
+// console.log(keys.twitter);
+// console.log(keys.spotify.id);
+var spotify = new Spotify({
+    id: keys.spotify.id,
+    secret: keys.spotify.secret
+});
 
 var action = process.argv[2];
 var inputs = process.argv[3];
@@ -46,7 +54,8 @@ function movieThis(inputs) {
         }
 
         if (!error && response.statusCode === 200) {
-
+            console.log('*============================================*');
+            console.log('*============================================*');
             console.log("Movie Title: " + JSON.parse(body).Title);
             console.log("Release Year: " + JSON.parse(body).Year);
             console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
@@ -55,6 +64,8 @@ function movieThis(inputs) {
             console.log("Language: " + JSON.parse(body).Language);
             console.log("The Plot: " + JSON.parse(body).Plot);
             console.log("Actors: " + JSON.parse(body).Actors);
+            console.log('*============================================*');
+            console.log('*============================================*');
 
         }
     })
@@ -65,42 +76,45 @@ function movieThis(inputs) {
 
 function spotifyMe(inputs) {
     console.log("music time");
-    
 
-    if (!inputs) {
-        inputs = "undefined";
-    }
+
+
+
+console.log(inputs);
+
     spotify.search({
-        type: "track",
-        query: inputs
+        type: 'track',
+        query: 'All the Small Things'
     }, function (err, data) {
         if (err) {
-            console.log("Error occurred: " + err);
-            
-            return;
+            return console.log('Error occurred: ' + err);
         }
-        console.log(data.artists);
-        // var songInfo = data.tracks.items;
-        console.log("Artist: " + data.tracks.items[0].artists[0].name);
-        // console.log("Artist: " + songInfo[0].artists[0].name);
 
-    })
+        console.log(data);
+    });
 };
 
 //-------twitter-----
 
 function twitterThis(inputs) {
+
+
+    var client = new Twitter({
+        consumer_key: process.env.TWITTER_CONSUMER_KEY,
+        consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+        access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+        access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+    });
     console.log("time to tweet");
     var params = {
-        screen_name: "SamAdams"
+        screen_name: "Sam Adams1"
     };
 
     client.get('statuses/user_timeline', params, function (error, tweets, response) {
         if (!error) {
-            for (i = 0; i < tweets.length; i++) {
-                console.log("Tweet: " + "'" + tweets[i].text);
-            }
-        } else {
+            console.log(response);
+            console.log(tweets);
+        } {
             console.log(error);
         }
     });
@@ -119,14 +133,14 @@ function doThis() {
 
         if (error) {
             return console.log(error);
-            
+
             var dataArr = data.split(",");
-            
+
             spotifyMe(dataArr);
-          }else {
-              console.log("error");
-          }
-         
-          console.log(data);
+        } else {
+            console.log("error");
+        }
+
+        console.log(data);
     })
 };
