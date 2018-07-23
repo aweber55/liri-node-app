@@ -4,11 +4,10 @@ var keys = require("./keys.js");
 var Twitter = require("twitter");
 
 var fs = require("fs");
-// var client = new Twitter(keys.twitterKeys);
+
 var Spotify = require("node-spotify-api");
 
-// console.log(keys.twitter);
-console.log(keys.spotify.id);
+
 var spotify = new Spotify({
     id: keys.spotify.id,
     secret: keys.spotify.secret
@@ -77,20 +76,28 @@ function movieThis(inputs) {
 function spotifyMe(inputs) {
     console.log("music time");
 
-    console.log()
 
 
-    console.log(inputs);
+
+
 
     spotify.search({
         type: 'track',
-        query: 'All the Small Things'
+        query: inputs
     }, function (err, data) {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
+        console.log('*============================================*');
+        console.log('*============================================*');
 
-        console.log(data);
+        console.log("Artist: " + data.tracks.items[0].artists[0].name);
+        console.log("Song: " + data.tracks.items[0].name);
+        console.log("Preview URL: " + data.tracks.items[0].preview_url);
+        console.log("Album Name: " + data.tracks.items[0].album.name);
+        console.log('*============================================*');
+        console.log('*============================================*');
+
     });
 };
 
@@ -112,10 +119,20 @@ function twitterThis(inputs) {
 
     client.get('statuses/user_timeline', params, function (error, tweets, response) {
         if (!error) {
-            console.log(response);
-            console.log(tweets);
-        } {
-            console.log(error);
+           
+            var tweetAmount = 0;
+
+            if (tweets.length < 20) {
+                  var tweetAmount = tweets.length;
+            } else {
+                tweetAmount = 20;
+                console.log(error);
+            }
+            for (var i = 0; i < tweetAmount; i++) {
+                
+                console.log(tweets[i].text);
+               
+            }
         }
     });
 
@@ -127,7 +144,7 @@ function twitterThis(inputs) {
 //--------do this readme function-------
 function doThis() {
 
-    console.log("here are random texts");
+    // console.log("here are random texts");
 
     fs.readFile("random.txt", "utf8", function (error, data) {
 
