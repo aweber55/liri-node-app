@@ -119,19 +119,19 @@ function twitterThis(inputs) {
 
     client.get('statuses/user_timeline', params, function (error, tweets, response) {
         if (!error) {
-           
+
             var tweetAmount = 0;
 
             if (tweets.length < 20) {
-                  var tweetAmount = tweets.length;
+                var tweetAmount = tweets.length;
             } else {
                 tweetAmount = 20;
                 console.log(error);
             }
             for (var i = 0; i < tweetAmount; i++) {
-                
+
                 console.log(tweets[i].text);
-               
+
             }
         }
     });
